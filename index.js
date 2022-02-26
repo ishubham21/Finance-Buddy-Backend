@@ -11,9 +11,7 @@ const whiteList = [
     "http://localhost"
 ]
 
-app.use(cors({
-    origin: whiteList
-}))
+app.use(cors())
 
 app.use(express.json())
 
