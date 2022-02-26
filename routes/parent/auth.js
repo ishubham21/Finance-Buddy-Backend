@@ -6,7 +6,9 @@ const jwt = require('jsonwebtoken')
 const { findParentByEmail } = require('../../controllers/parentValidators')
 const { verifyLogin, verifyRegistration } = require('../../controllers/commonValidators')
 
-router.post('/register', (req, res) => {
+router.post('/register', async (req, res) => {
+
+    console.log(req.body)
     //verifying if the registration data is according to the specifications
     const verificationError = verifyRegistration(req.body).error
 
@@ -50,7 +52,7 @@ router.post('/register', (req, res) => {
     }
 })
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
 
     //checking for verification errors
     const verificationError = verifyLogin(req.body).error
@@ -60,8 +62,8 @@ router.post('/login', (req, res) => {
         })
     }
 
-    //checking if the email entered by the user is already present
-    if (!(await emailValidation(req.body.email))) {
+    //checking if the email entered by the parent is already present
+    if (!(await findParentByEmail(req.body.email))) {
         return res.status(403).json({
             error: "Email doesn't exist"
         })
@@ -70,7 +72,7 @@ router.post('/login', (req, res) => {
     const parent = await Parent.findOne({ email: req.body.email });
 
     // checking for password correctness
-    const validPassword = await bcrypt.compare(req.body.password, user.password);
+    const validPassword = await bcrypt.compare(req.body.password, parent.password);
 
     if (!validPassword) {
         return res.status(401).json({
