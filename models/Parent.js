@@ -24,7 +24,11 @@ const ParentSchema = new mongoose.Schema({
         default: Date.now
     },
     children: {
-        type: Array,    //{ email: , name: }
+        type: Array,    //[{ email: , name: }, { email: , name: }]
+        default: []
+    },
+    sentRequests: {
+        type: Array,    //[{ email: , name: }, { email: , name: }]
         default: []
     }
 })
