@@ -152,7 +152,7 @@
 
 ### For Dashboard of Child
 
-`GET` request on the URL - [https://finance-buddy-backend.vercel.app/parent/child](https://finance-buddy-backend.vercel.app/parent/child).
+`GET` request on the URL - [https://finance-buddy-backend.vercel.app/child/dashboard](https://finance-buddy-backend.vercel.app/child/dashboard).
 
 **Request HEADER should include -**
 ```
@@ -179,3 +179,16 @@
     }
 }
 ```
+
+
+## Quiz Routes
+
+To get a quiz on `topic`, make a `GET` request on this URL [https://finance-buddy-backend.vercel.app/quiz?topic=sip](https://finance-buddy-backend.vercel.app/quiz?topic=sip)
+
+In place of SIP we can use - 
+
+1. sip
+2. mutualFunds
+3. nft
+4. crypto
+
