@@ -192,3 +192,14 @@ In place of SIP we can use -
 3. nft
 4. crypto
 
+## Lessons Routes
+
+To get a quiz on `topic`, make a `GET` request on this URL [https://finance-buddy-backend.vercel.app/lesson?topic=sip](https://finance-buddy-backend.vercel.app/lesson?topic=sip)
+
+In place of SIP we can use - 
+
+1. sip
+2. mutualFunds
+3. nft
+4. crypto
+
