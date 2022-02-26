@@ -44,6 +44,9 @@ app.use('/child/dashboard', jwtverification, childDashboard)
 const quiz = require('./routes/quiz')
 app.use('/quiz', quiz)
 
+const lesson = require('./routes/lesson')
+app.use('/lesson', lesson)
+
 app.listen(PORT, () => {
     console.log(`Listening on the port ${PORT}`)
 })
