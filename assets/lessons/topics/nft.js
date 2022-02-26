@@ -1,0 +1,11 @@
+const nft = [
+    "An NFT is a digital asset that represents real-world objects like art, music, in-game items and videos. They are bought and sold online, frequently with cryptocurrency, and they are generally encoded with the same underlying software as many cryptos.",
+    "NFTs are also generally one of a kind, or at least one of a very limited run, and have unique identifying codes. “Essentially, NFTs create digital scarcity,” says Arry Yu, chair of the Washington Technology Industry Association Cascadia Blockchain Council and managing director of Yellow Umbrella Ventures.",
+    "This stands in stark contrast to most digital creations, which are almost always infinite in supply. Hypothetically, cutting off the supply should raise the value of a given asset, assuming it is in demand. But many NFTs, at least in these early days, have been digital creations that already exist in some form elsewhere, like iconic video clips from NBA games or securitized versions of digital art that is already floating around on Instagram.",
+    "They are generally built using the same kind of programming as cryptocurrency, like Bitcoin or Ethereum, but that is where the similarity ends.",
+    "NFTs exist on a blockchain, which is a distributed public ledger that records transactions. You are probably most familiar with blockchain as the underlying process that makes cryptocurrencies possible.",
+    "An NFT is created, or “minted” from digital objects that represent both tangible and intangible items including art, music GIFs, etc",
+    "Blockchain technology and NFTs afford artists and content creators a unique opportunity to monetize their wares. For example, artists no longer have to rely on galleries or auction houses to sell their art. Instead, the artist can sell it directly to the consumer as an NFT, which also lets them keep more of the profits. In addition, artists can program in royalties so they will receive a percentage of sales whenever their art is sold to a new owner.",
+]
+
+module.exports = nft
