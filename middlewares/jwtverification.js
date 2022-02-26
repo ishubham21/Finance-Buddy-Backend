@@ -14,7 +14,7 @@ const verifyToken = (req, res, next) => {
 
     //decrypting jwt recieved from the server
     try {
-        const verified = jwt.verify(token, process.env.TOKEN_SECRET)
+        const verified = jwt.verify(token, 'hackwind')
         req.user = verified    //attaching the user info in the request
         next() //continuing the flow //accessing dashboard route only if the token is verified
 

@@ -18,14 +18,14 @@ app.use(cors({
 app.use(express.json())
 
 const mongoose = require('mongoose')
-mongoose.connect(process.env.DB_CONFIG, {
+mongoose.connect('mongodb+srv://ishubham:ishubham@cluster0.i9jke.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => {
     console.log('Connection Successful!')
 }).catch(err => console.log(err))
 
-const PORT = process.env.PORT || 4000
+const PORT = 4000
 
 const jwtverification = require('./middlewares/jwtverification')
 

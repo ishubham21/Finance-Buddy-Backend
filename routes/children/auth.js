@@ -89,7 +89,7 @@ router.post('/login', async (req, res) => {
             recievedRequest: child.recievedRequest,
             id: child._id,
         },
-        process.env.TOKEN_SECRET
+        'hackwind'
     );
 
     //sending token as a header upon successful login
