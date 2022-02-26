@@ -1,7 +1,7 @@
 const Child = require('../models/Parent')
 const ObjectId = require('mongoose').Types.ObjectId
 
-const findChildByEmail = async () => {
+const findChildByEmail = async (email) => {
     const child = await Child.findOne({ email: email })   //findOne returns an entire obejct where email === email
     return child !== null  //return true if email exists
 }
