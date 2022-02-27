@@ -8,7 +8,6 @@ const { verifyLogin, verifyRegistration } = require('../../controllers/commonVal
 
 router.post('/register', async (req, res) => {
 
-    console.log(req.body)
     //verifying if the registration data is according to the specifications
     const verificationError = verifyRegistration(req.body).error
 

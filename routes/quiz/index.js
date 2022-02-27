@@ -7,6 +7,8 @@ const Child = require('./../../models/Child')
 const { findChildByEmail } = require('../../controllers/childValidators')
 const { findParentByEmail } = require('../../controllers/parentValidators')
 
+const quizzesAvailable = require('../../assets/quizzes')
+
 router.get('/', (req, res) => {
 
     const topic = req.query.topic
@@ -37,6 +39,18 @@ router.post('/assign', async (req, res) => {
     if (!(await findChildByEmail(childEmail))) {
         return res.status(401).json({
             error: "Looks like your child has not made an account yet!"
+        })
+    }
+
+    if (!quizTopic) {
+        return res.status(401).json({
+            error: "No quiz was passed in the body"
+        })
+    }
+
+    if (!quizzesAvailable[quizTopic]) {
+        return res.status(404).json({
+            error: "No such quiz found!"
         })
     }
 
