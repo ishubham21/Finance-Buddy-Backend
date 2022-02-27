@@ -86,16 +86,16 @@ router.post('/assign', async (req, res) => {
 
         await Parent.findOneAndUpdate({ email: parentEmail }, { assignedLessons: assignedLessonsParent })
         await Child.findOneAndUpdate({ email: childEmail }, { assignedLessons: assignedLessonsChild })
-        
+
         return res.status(201).json({
             error: null,
         })
     } catch (error) {
-        
+
         return res.json(500).json({
             error: "Server Error!"
         })
-    
+
     }
 })
 
@@ -127,6 +127,12 @@ router.post('/complete', async (req, res) => {
         topic: lessonTopic
     }
     childHistory.push(newHistory)
+    const assignedLessonsChild = child.assignedLessons
+    for (let i = 0; i < assignedLessonsChild.length; i++) {
+        if (assignedLessonsChild[i]['lessonTopic'] == lessonTopic) {
+            assignedLessonsChild[i]['completed'] = true
+        }
+    }
 
     const parent = await Parent.findOne({ email: parentEmail })
     const parentHistory = parent.lessonHistory
@@ -136,11 +142,18 @@ router.post('/complete', async (req, res) => {
         email: childEmail
     }
     parentHistory.push(newHistoryParent)
+    const assignedLessonsParent = parent.assignedLessons
+    for (let i = 0; i < assignedLessonsParent.length; i++) {
+        if (assignedLessonsParent[i]['lessonTopic'] == lessonTopic && assignedLessonsParent[i]['email'] == childEmail) {
+            assignedLessonsParent[i]['completed'] = true
+        }
+    }
 
     try {
         await Parent.findOneAndUpdate({ email: parentEmail }, { lessonHistory: parentHistory })
+        await Parent.findOneAndUpdate({ email: parentEmail }, { assignedLessons: assignedLessonsParent })
         await Child.findOneAndUpdate({ email: childEmail }, { lessonHistory: childHistory })
-
+        await Child.findOneAndUpdate({ email: childEmail }, { assignedLessons: assignedLessonsChild })
         return res.status(201).json({
             error: null
         })

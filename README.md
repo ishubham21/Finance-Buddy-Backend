@@ -226,7 +226,7 @@ You will recieve -
 
 ## Assign Lesson
 
-To assign a lesson from PARENTS' dashboard, make a `POST` request to [https://finance-buddy-backend.vercel.app/lesson/assign](https://finance-buddy-backend.vercel.app/quiz/assign). Body of POST request should look like this - 
+To assign a lesson from PARENTS' dashboard, make a `POST` request to [https://finance-buddy-backend.vercel.app/lesson/assign](https://finance-buddy-backend.vercel.app/lesson/assign). Body of POST request should look like this - 
 
 ```
 {
@@ -242,4 +242,29 @@ You will recieve -
 {
     error: null
 }
+```
 
+## Complete quiz 
+
+To mark a quiz as complete and save it in history, make a `POST` request to [https://finance-buddy-backend.vercel.app/quiz/complete](https://finance-buddy-backend.vercel.app/quiz/complete). The body should include - 
+
+```
+{
+    parentEmail: "sg2199203@gmail.com",
+    childEmail: "kc223013@gmail.com",
+    quizTopic: "sip",
+    quizScore: 5
+}
+```
+
+## Complete Lesson 
+
+To mark a quiz as complete and save it in history, make a `POST` request to [https://finance-buddy-backend.vercel.app/lesson/complete](https://finance-buddy-backend.vercel.app/lesson/complete). The body should include - 
+
+```
+{
+    parentEmail: "sg2199203@gmail.com",
+    childEmail: "kc223013@gmail.com",
+    lessonTopic: "sip",
+}
+```

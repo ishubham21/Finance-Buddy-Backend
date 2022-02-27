@@ -57,8 +57,8 @@ router.post('/assign', async (req, res) => {
     const parent = await Parent.findOne({ email: parentEmail })
     let assignedQuizzesParent = await parent.assignedQuizzes
 
-    for (let i = 0; i < assignedLessonsParent.length; i++) {
-        if (assignedQuizzesParent[i]['lessonTopic'] == quizTopic && assignedQuizzesParent[i]['completed'] == false && assignedQuizzesParent[i]['email'] == childEmail) {
+    for (let i = 0; i < assignedquizzesParent.length; i++) {
+        if (assignedQuizzesParent[i]['quizTopic'] == quizTopic && assignedQuizzesParent[i]['completed'] == false && assignedQuizzesParent[i]['email'] == childEmail) {
             return res.json({
                 error: "Quiz has been already assigned, let your child finish it before re-assigning it."
             })
@@ -134,6 +134,13 @@ router.post('/complete', async (req, res) => {
         topic: quizTopic
     }
     childHistory.push(newHistory)
+    const assignedQuizzesChild = child.assignedQuizzes
+    for (let i = 0; i < assignedQuizzesChild.length; i++) {
+        if (assignedQuizzesChild[i]['quizTopic'] == quizTopic) {
+            assignedQuizzesChild[i]['completed'] = true
+        }
+    }
+
 
     const parent = await Parent.findOne({ email: parentEmail })
     const parentHistory = parent.quizHistory
@@ -144,10 +151,20 @@ router.post('/complete', async (req, res) => {
         email: childEmail
     }
     parentHistory.push(newHistoryParent)
+    const assignedQuizzesParent = parent.assignedQuizzes
+    for (let i = 0; i < assignedQuizzesParent.length; i++) {
+        if (assignedQuizzesParent[i]['lessonTopic'] == lessonTopic && assignedQuizzesParent[i]['email'] == childEmail) {
+            assignedQuizzesParent[i]['completed'] = true
+        }
+    }
+
 
     try {
         await Parent.findOneAndUpdate({ email: parentEmail }, { quizHistory: parentHistory })
+        await Parent.findOneAndUpdate({ email: parentEmail }, { assignedLessons: assignedQuizzesParent })
+
         await Child.findOneAndUpdate({ email: childEmail }, { quizHistory: childHistory })
+        await Child.findOneAndUpdate({ email: childEmail }, { assignedLessons: assignedQuizzesChild })
 
         return res.status(201).json({
             error: null
