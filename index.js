@@ -45,6 +45,9 @@ app.use('/quiz', quiz)
 const lesson = require('./routes/lesson')
 app.use('/lesson', lesson)
 
+const addChild = require('./routes/addChild')
+app.use('/addchild', addChild)
+
 app.listen(PORT, () => {
     console.log(`Listening on the port ${PORT}`)
 })

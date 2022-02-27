@@ -57,17 +57,17 @@ router.post('/assign', async (req, res) => {
     const parent = await Parent.findOne({ email: parentEmail })
     let assignedLessonsParent = await parent.assignedLessons
 
-    assignedLessonsParent.forEach(lesson => {   //if the topic has already been assigned
-        if (lesson['lessonTopic'] == lessonTopic && lesson['completed'] == false && lesson['email'] == childEmail) {
-            res.json({
+    for (let i = 0; i < assignedLessonsParent.length; i++) {
+        if (assignedLessonsParent[i]['lessonTopic'] == lessonTopic && assignedLessonsParent[i]['completed'] == false && assignedLessonsParent[i]['email'] == childEmail) {
+            return res.json({
                 error: "Lesson has been already assigned, let your child finish it before re-assigning it."
             })
         }
-    });
+    }
 
     const child = await Child.findOne({ email: childEmail })
     let assignedLessonsChild = child.assignedLessons
-    console.log(assignedLessonsChild);
+
     const updateRefParent = {
         name: child.name,
         email: child.email,
@@ -83,15 +83,19 @@ router.post('/assign', async (req, res) => {
     assignedLessonsChild.push(updateRefChild)
 
     try {
+
         await Parent.findOneAndUpdate({ email: parentEmail }, { assignedLessons: assignedLessonsParent })
         await Child.findOneAndUpdate({ email: childEmail }, { assignedLessons: assignedLessonsChild })
-        res.status(201).json({
+        
+        return res.status(201).json({
             error: null,
         })
     } catch (error) {
-        res.json(500).json({
+        
+        return res.json(500).json({
             error: "Server Error!"
         })
+    
     }
 })
 
