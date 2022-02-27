@@ -20,7 +20,12 @@ const findChildById = async (childId) => {
     }
 }
 
+const getChildData = async (email) => {
+    return (await Child.findOne({ email: email }))
+}
+
 module.exports = {
     findChildByEmail,
-    findChildById
+    findChildById,
+    getChildData
 }
