@@ -10,16 +10,16 @@ router.post('/register', async (req, res) => {
     //verifying if the registration data is according to the specifications
     const verificationError = verifyRegistration(req.body).error
 
-    //send a status of 400 in case of wrong details
+    //send a status of 200 in case of wrong details
     if (verificationError) {
-        return res.status(406).json({
+        return res.status(206).json({
             error: verificationError.details[0].message
         })
     }
 
     //checking if the email entered by the children is already present
     if (await findChildByEmail(req.body.email)) {
-        return res.status(403).json({
+        return res.status(203).json({
             error: "Email already exists"
         })
     }
@@ -55,14 +55,14 @@ router.post('/login', async (req, res) => {
     //checking for verification errors
     const verificationError = verifyLogin(req.body).error
     if (verificationError) {
-        return res.status(406).json({
+        return res.status(206).json({
             error: verificationError.details[0].message
         })
     }
 
     //checking if the email entered by the child is already present
     if (!(await findChildByEmail(req.body.email))) {
-        return res.status(403).json({
+        return res.status(203).json({
             error: "Email doesn't exist"
         })
     }
@@ -73,7 +73,7 @@ router.post('/login', async (req, res) => {
     const validPassword = await bcrypt.compare(req.body.password, child.password);
 
     if (!validPassword) {
-        return res.status(401).json({
+        return res.status(201).json({
             error: "Incorrect Password"
         });
     }
