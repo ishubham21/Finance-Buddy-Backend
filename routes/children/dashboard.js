@@ -5,7 +5,7 @@ router.get("/", async (req, res) => {
     res.json({
         error: null,
         data: {
-            parent: req.user
+            child: req.user
         },
     });
 });

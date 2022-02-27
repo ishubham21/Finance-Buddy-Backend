@@ -88,6 +88,8 @@ router.post('/login', async (req, res) => {
             email: parent.email,
             children: parent.children,
             sentRequests: parent.sentRequests,
+            assignedQuizzes: parent.assignedQuizzes,
+            assignedLessons: parent.assignedLessons,
             id: parent._id,
         },
         'hackwind'
