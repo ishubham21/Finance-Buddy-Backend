@@ -61,7 +61,7 @@ router.post('/login', async (req, res) => {
     }
 
     //checking if the email entered by the child is already present
-    if (!(await emailValidation(req.body.email))) {
+    if (!(await findChildByEmail(req.body.email))) {
         return res.status(403).json({
             error: "Email doesn't exist"
         })

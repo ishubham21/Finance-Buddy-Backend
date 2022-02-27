@@ -1,4 +1,4 @@
-const Child = require('../models/Parent')
+const Child = require('../models/Child')
 const ObjectId = require('mongoose').Types.ObjectId
 
 const findChildByEmail = async (email) => {
