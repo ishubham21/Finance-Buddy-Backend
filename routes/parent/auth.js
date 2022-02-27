@@ -8,7 +8,6 @@ const { verifyLogin, verifyRegistration } = require('../../controllers/commonVal
 
 router.post('/register', async (req, res) => {
 
-    console.log(req.body)
     //verifying if the registration data is according to the specifications
     const verificationError = verifyRegistration(req.body).error
 
@@ -96,6 +95,7 @@ router.post('/login', async (req, res) => {
 
     //sending token as a header upon successful login
     res.header("auth-token", token).json({
+        error: null,
         data: {
             token
         },
