@@ -31,25 +31,25 @@ router.post('/assign', async (req, res) => {
     const { parentEmail, childEmail, quizTopic } = req.body
 
     if (!(await findParentByEmail(parentEmail))) {
-        return res.status(401).json({
+        return res.status(200).json({
             error: "Please register as Parent before assigning the quiz"
         })
     }
 
     if (!(await findChildByEmail(childEmail))) {
-        return res.status(401).json({
+        return res.status(200).json({
             error: "Looks like your child has not made an account yet!"
         })
     }
 
     if (!quizTopic) {
-        return res.status(401).json({
+        return res.status(200).json({
             error: "No quiz was passed in the body"
         })
     }
 
     if (!quizzesAvailable[quizTopic]) {
-        return res.status(404).json({
+        return res.status(200).json({
             error: "No such quiz found!"
         })
     }
@@ -153,7 +153,7 @@ router.post('/complete', async (req, res) => {
     parentHistory.push(newHistoryParent)
     const assignedQuizzesParent = parent.assignedQuizzes
     for (let i = 0; i < assignedQuizzesParent.length; i++) {
-        if (assignedQuizzesParent[i]['lessonTopic'] == lessonTopic && assignedQuizzesParent[i]['email'] == childEmail) {
+        if (assignedQuizzesParent[i]['quizTopic'] == quizTopic && assignedQuizzesParent[i]['email'] == childEmail) {
             assignedQuizzesParent[i]['completed'] = true
         }
     }
