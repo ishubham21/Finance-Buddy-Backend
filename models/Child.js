@@ -30,6 +30,10 @@ const ChildSchema = new mongoose.Schema({
     recievedRequest: {
         type: Array,    //[{ email: , name: }]
         default: []
+    },
+    assignedQuizzes: {
+        type: Array,
+        default: []
     }
 })
 
