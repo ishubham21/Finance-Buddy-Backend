@@ -10,6 +10,18 @@ router.post('/', async (req, res) => {
 
     const { parentEmail, childEmail } = req.body
 
+    if(!parentEmail){
+        return res.status(403).json({
+            error: "Parent email missing"
+        })
+    }
+
+    if(!childEmail){
+        return res.status(403).json({
+            error: "Child email missing"
+        })
+    }
+
     if (!(await findParentByEmail(parentEmail))) {
         return res.status(401).json({
             error: "Please register as Parent before adding a child"
@@ -24,14 +36,6 @@ router.post('/', async (req, res) => {
 
     const parent = await Parent.findOne({ email: parentEmail })
     let childrenFromParent = parent.children
-
-    // childrenFromParent.every(child => {
-    //     if(child['email'] == childEmail){
-    //         return res.status(403).json({
-    //             error: `You already have ${child['name']} added as your child`
-    //         })
-    //     }
-    // })
 
     for (let i = 0; i < childrenFromParent.length; i++) {
         if (childrenFromParent[i]['email'] == childEmail) {

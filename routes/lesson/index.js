@@ -99,4 +99,58 @@ router.post('/assign', async (req, res) => {
     }
 })
 
+router.post('/complete', async (req, res) => {
+
+    const { childEmail, parentEmail, lessonTopic } = req.body
+
+    if (!(await findParentByEmail(parentEmail))) {
+        return res.status(401).json({
+            error: "Please register as Parent"
+        })
+    }
+
+    if (!(await findChildByEmail(childEmail))) {
+        return res.status(401).json({
+            error: "Invalid child email!"
+        })
+    }
+
+    if (!lessonTopic) {
+        return res.status(401).json({
+            error: "No lesson was passed in the body"
+        })
+    }
+
+    const child = await Child.findOne({ email: childEmail })
+    const childHistory = child.lessonHistory
+    const newHistory = {
+        topic: lessonTopic
+    }
+    childHistory.push(newHistory)
+
+    const parent = await Parent.findOne({ email: parentEmail })
+    const parentHistory = parent.lessonHistory
+    const newHistoryParent = {
+        topic: lessonTopic,
+        name: child.name,
+        email: childEmail
+    }
+    parentHistory.push(newHistoryParent)
+
+    try {
+        await Parent.findOneAndUpdate({ email: parentEmail }, { lessonHistory: parentHistory })
+        await Child.findOneAndUpdate({ email: childEmail }, { lessonHistory: childHistory })
+
+        return res.status(201).json({
+            error: null
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+            error: "Server unresponsive!"
+        })
+    }
+
+})
+
 module.exports = router

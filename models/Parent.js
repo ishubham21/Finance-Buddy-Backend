@@ -38,6 +38,14 @@ const ParentSchema = new mongoose.Schema({
     assignedLessons: {
         type: Array,
         default: []
+    },
+    lessonHistory: {
+        type: Array,
+        default: []
+    },
+    quizHistory: {
+        type: Array,
+        default: []
     }
 })
 
