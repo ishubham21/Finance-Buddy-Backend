@@ -57,7 +57,7 @@ router.post('/assign', async (req, res) => {
     const parent = await Parent.findOne({ email: parentEmail })
     let assignedQuizzesParent = await parent.assignedQuizzes
 
-    for (let i = 0; i < assignedquizzesParent.length; i++) {
+    for (let i = 0; i < assignedQuizzesParent.length; i++) {
         if (assignedQuizzesParent[i]['quizTopic'] == quizTopic && assignedQuizzesParent[i]['completed'] == false && assignedQuizzesParent[i]['email'] == childEmail) {
             return res.json({
                 error: "Quiz has been already assigned, let your child finish it before re-assigning it."
