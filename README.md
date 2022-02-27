@@ -203,3 +203,43 @@ In place of SIP we can use -
 3. nft
 4. crypto
 
+
+## Assign Quiz
+
+To assign a quiz from PARENTS' dashboard, make a `POST` request to [https://finance-buddy-backend.vercel.app/quiz/assign](https://finance-buddy-backend.vercel.app/quiz/assign). Body of POST request should look like this - 
+
+```
+{
+    parentEmail: "sg2199203@gmail.com",
+    childEmail: "kc223013@gmail.com",
+    quizTopic: "sip",
+}
+```
+
+You will recieve - 
+
+```
+{
+    error: null
+}
+```
+
+## Assign Lesson
+
+To assign a lesson from PARENTS' dashboard, make a `POST` request to [https://finance-buddy-backend.vercel.app/lesson/assign](https://finance-buddy-backend.vercel.app/quiz/assign). Body of POST request should look like this - 
+
+```
+{
+    parentEmail: "sg2199203@gmail.com",
+    childEmail: "kc223013@gmail.com",
+    lessonTopic: "sip",
+}
+```
+
+You will recieve - 
+
+```
+{
+    error: null
+}
+
