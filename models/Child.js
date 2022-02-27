@@ -31,7 +31,7 @@ const ChildSchema = new mongoose.Schema({
         type: Array,    //[{ email: , name: }]
         default: []
     },
-    assignedQuiz: {
+    assignedQuizzes: {
         type: Array,
         default: []
     }

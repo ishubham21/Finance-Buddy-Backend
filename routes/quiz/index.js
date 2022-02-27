@@ -41,9 +41,9 @@ router.post('/assign', async (req, res) => {
     }
 
     const parent = await Parent.findOne({ email: parentEmail })
-    let assignedQuizzes = await parent.assignedQuizzes
+    let assignedQuizzesParent = await parent.assignedQuizzes
 
-    assignedQuizzes.forEach(quiz => {
+    assignedQuizzesParent.forEach(quiz => {   //if the topic has already been assigned
         if (quiz['quizTopic'] == quizTopic && quiz['completed'] == false && quiz['email'] == childEmail) {
             res.json({
                 error: "Quiz has been already assigned, let your child finish it before re-assigning it."
@@ -52,17 +52,25 @@ router.post('/assign', async (req, res) => {
     });
 
     const child = await Child.findOne({ email: childEmail })
-
-    const updateRef = {
+    let assignedQuizzesChild = child.assignedQuizzes
+    console.log(assignedQuizzesChild);
+    const updateRefParent = {
         name: child.name,
         email: child.email,
         quizTopic,
         completed: false
     }
-    assignedQuizzes.push(updateRef)
+    assignedQuizzesParent.push(updateRefParent)
+
+    const updateRefChild = {
+        quizTopic,
+        completed: false
+    }
+    assignedQuizzesChild.push(updateRefChild)
 
     try {
-        await Parent.findOneAndUpdate({ email: parentEmail }, { assignedQuizzes })
+        await Parent.findOneAndUpdate({ email: parentEmail }, { assignedQuizzes: assignedQuizzesParent })
+        await Child.findOneAndUpdate({ email: childEmail }, { assignedQuizzes: assignedQuizzesChild })
         res.status(201).json({
             error: null,
         })
